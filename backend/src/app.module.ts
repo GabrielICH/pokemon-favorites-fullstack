@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { FavoritesModule } from './favorites/favorites.module';
+import { SocketsModule } from './sockets/sockets.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { FavoritesModule } from './favorites/favorites.module';
       synchronize: true,
     }),
     FavoritesModule,
+    SocketsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

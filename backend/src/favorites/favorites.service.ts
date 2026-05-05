@@ -3,12 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Favorite } from './entities/favorite.entity';
 import { CreateFavoriteDto } from './dto/create-favorite.dto';
+import { FavoritesGateway } from '../sockets/favorites/favorites.gateway';
 
 @Injectable()
 export class FavoritesService {
   constructor(
     @InjectRepository(Favorite)
     private readonly repo: Repository<Favorite>,
+    private readonly favoritesGateway: FavoritesGateway,
   ) {}
 
   async create(data: CreateFavoriteDto): Promise<Favorite> {
@@ -23,7 +25,11 @@ export class FavoritesService {
     }
 
     const favorite = this.repo.create(data);
-    return this.repo.save(favorite);
+    const savedFavorite = await this.repo.save(favorite);
+
+    this.favoritesGateway.emitFavoriteAdded(savedFavorite);
+
+    return savedFavorite;
   }
 
   async findAll(): Promise<Favorite[]> {
@@ -36,9 +42,12 @@ export class FavoritesService {
 
   async remove(id: string): Promise<{ deleted: boolean }> {
     const result = await this.repo.delete(id);
+    const deleted = Boolean(result.affected);
 
-    return {
-      deleted: Boolean(result.affected),
-    };
+    if (deleted) {
+      this.favoritesGateway.emitFavoriteRemoved(id);
+    }
+
+    return { deleted };
   }
 }
