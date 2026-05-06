@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { FavoritesModule } from './favorites/favorites.module';
 import { SocketsModule } from './sockets/sockets.module';
+import { PokemonModule } from './pokemon/pokemon.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { SocketsModule } from './sockets/sockets.module';
     }),
     FavoritesModule,
     SocketsModule,
+    PokemonModule,
   ],
   controllers: [AppController],
   providers: [AppService],
