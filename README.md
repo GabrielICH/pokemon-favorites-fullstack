@@ -28,15 +28,11 @@
 
 
 
-# ⚙️ Funcionalidades Implementadas
+#  Funcionalidades Implementadas
 
-## 📌 Integración con PokéAPI
-
-
-## ⭐ CRUD de Favoritos
-
-
-## 🔥 Comunicación en Tiempo Real
+Integración con PokéAPI
+CRUD de Favoritos
+Comunicación en Tiempo Real
 
 
 El proyecto puede levantarse utilizando un único comando:
@@ -53,7 +49,7 @@ Incluye:
 
 
 
-# 🧱 Estructura del Proyecto
+# Estructura del Proyecto
 
 ```text
 pokemon-favorites-fullstack/
